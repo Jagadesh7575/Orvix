@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Orbitron:wght@400;600&family=Audiowide&family=Exo+2:wght@400;600&family=Rajdhani:wght@400;600&family=Oxanium:wght@400;600&family=Chakra+Petch:wght@400;600&family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:wght@400;600&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=Oswald:wght@400;600&family=Raleway:wght@400;600&family=Kanit:wght@400;600&family=Barlow+Condensed:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600&family=Anton&family=Archivo+Black&family=Cinzel:wght@400;600&family=Abril+Fatface&family=Prata&family=Unbounded:wght@400;600&family=Syne:wght@400;600&family=Michroma&family=Syncopate:wght@400;700&family=Black+Ops+One&family=Russo+One&family=Bungee&family=Staatliches&family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Lato:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=Nunito+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Comfortaa:wght@400;500;600;700&family=Josefin+Sans:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Hind:wght@400;500;600;700&family=Karla:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&family=Assistant:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Sreda';
+  src: url('/fonts/Sreda.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Sreda', 'Josefin Sans', system-ui, sans-serif;
+    --font-body: 'Josefin Sans', system-ui, sans-serif;
+    
+    --theme-bg: #050711;
+    --theme-bg-soft: #090b14;
+    --theme-surface: #11131f;
+    --theme-surface-elevated: #171927;
+    --theme-card: #151722;
+    --theme-card-border: rgba(255,255,255,0.12);
+    --theme-text: #f8fafc;
+    --theme-text-muted: #94a3b8;
+    --theme-primary: #7c3aed;
+    --theme-secondary: #06b6d4;
+    --theme-accent: #a78bfa;
+    --theme-button-gradient: linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    --theme-bubble-outgoing: linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+    --theme-bubble-incoming: #1f2330;
+    --theme-nav-bg: rgba(15,17,27,0.92);
+    --theme-input-bg: rgba(255,255,255,0.06);
+    --theme-danger: #ef4444;
+    --theme-success: #22c55e;
+    --theme-shadow: 0 20px 70px rgba(0,0,0,0.45);
+    --theme-glow: 0 0 32px rgba(124,58,237,0.35);
+
+    /* Legacy mapping for website backward compatibility */
+    --bg-color: var(--theme-bg);
+    --surface-color: var(--theme-surface);
+    --primary-color: var(--theme-primary);
+    --secondary-color: var(--theme-secondary);
+    --text-color: var(--theme-text);
+    --muted-color: var(--theme-text-muted);
+    --glow-color: var(--theme-primary);
+    --primary-gradient: var(--theme-button-gradient);
+
+    /* Safe Area Insets for Mobile */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+    --bottom-nav-height: 78px;
+  }
+
+  /* Typography Rules (Fallback mappings if specific premium fonts are not available) */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  button, .font-button {
+    font-family: 'Satoshi', 'Manrope', sans-serif;
+  }
+}
+
+@layer utilities {
+  .app-bg { background: var(--theme-bg); }
+  .app-surface { background: var(--theme-surface); }
+  .app-card { background: var(--theme-card); }
+  .app-text { color: var(--theme-text); }
+  .app-muted { color: var(--theme-text-muted); }
+  .app-border { border-color: var(--theme-card-border); }
+  .theme-gradient-btn { background: var(--theme-button-gradient); }
+  .theme-outgoing-bubble { background: var(--theme-bubble-outgoing); }
+  .theme-incoming-bubble { background: var(--theme-bubble-incoming); }
+  .theme-input { background: var(--theme-input-bg); border-color: var(--theme-card-border); color: var(--theme-text); }
+
+  .bg-primary-gradient {
+    background: var(--primary-gradient);
+  }
+  
+  .bg-bubble-outgoing {
+    background: var(--theme-bubble-outgoing);
+  }
+
+  .bg-bubble-incoming {
+    background: var(--theme-bubble-incoming);
+  }
+
+  .glass-panel {
+    background: var(--theme-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--theme-card-border);
+  }
+  
+  .glass-panel-heavy {
+    background: var(--theme-surface-elevated);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--theme-card-border);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 15px var(--theme-glow);
+  }
+  
+  .app-page {
+    min-height: 100dvh;
+    padding-top: calc(env(safe-area-inset-top) + 12px);
+    padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 16px);
+  }
+
+  .chat-page {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-surface);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-primary);
+}
+
+@layer utilities {
+  .website-shell {
+    font-family: var(--font-body);
+  }
+  
+  .website-shell h1,
+  .website-shell h2,
+  .website-shell h3,
+  .website-shell h4,
+  .website-shell h5,
+  .website-shell h6,
+  .website-shell .font-heading {
+    font-family: var(--font-heading);
+  }
+  
+  .website-shell p,
+  .website-shell span,
+  .website-shell a,
+  .website-shell button,
+  .website-shell label,
+  .website-shell small,
+  .website-shell li,
+  .website-shell input,
+  .website-shell textarea,
+  .website-shell .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+/* Typography Selection System Scoping */
+.native-app,
+.native-app *,
+.app-shell,
+.app-shell *,
+.chat-page,
+.chat-page *,
+.settings-page,
+.settings-page *,
+.dashboard-page,
+.dashboard-page *,
+.profile-page,
+.profile-page *,
+.activity-page,
+.activity-page *,
+.discover-page,
+.discover-page *,
+.app-page,
+.app-page * {
+  font-family: var(--orvix-body-font-family, inherit);
+}
+
+.native-app h1,
+.native-app h2,
+.native-app h3,
+.native-app h4,
+.native-app h5,
+.native-app h6,
+.native-app .font-display,
+.native-app .app-title,
+.app-shell h1,
+.app-shell h2,
+.app-shell h3,
+.app-shell h4,
+.app-shell h5,
+.app-shell h6,
+.app-shell .font-display,
+.app-shell .app-title {
+  font-family: var(--orvix-heading-font-family, var(--orvix-body-font-family, inherit));
+}
+
+.icon,
+svg,
+[data-icon],
+.lucide {
+  font-family: inherit;
+}
+
+/* GlowCard Global Styles */
+[data-glow]::before,
+[data-glow]::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: calc(var(--border-size) * -1);
+  border: var(--border-size) solid transparent;
+  border-radius: calc(var(--radius) * 1px);
+  background-attachment: fixed;
+  background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+}
+
+[data-glow]::before {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+    calc(var(--x, 0) * 1px)
+    calc(var(--y, 0) * 1px),
+    hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) calc(var(--lightness, 50) * 1%) / var(--border-spot-opacity, 1)), transparent 100%
+  );
+  filter: brightness(2);
+}
+
+[data-glow]::after {
+  background-image: radial-gradient(
+    calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+    calc(var(--x, 0) * 1px)
+    calc(var(--y, 0) * 1px),
+    hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
+  );
+}
+
+[data-glow] [data-glow] {
+  position: absolute;
+  inset: 0;
+  will-change: filter;
+  opacity: var(--outer, 1);
+  border-radius: calc(var(--radius) * 1px);
+  border-width: calc(var(--border-size) * 20);
+  filter: blur(calc(var(--border-size) * 10));
+  background: none;
+  pointer-events: none;
+  border: none;
+}
+
+[data-glow] > [data-glow]::before {
+  inset: -10px;
+  border-width: 10px;
+}
+
+/* PERFORMANCE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+  
+  .shadow-glow,
+  .shadow-glass,
+  .shadow-2xl {
+    box-shadow: none !important;
+  }
+  
+  .glass-panel {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}

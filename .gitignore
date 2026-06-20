@@ -14,8 +14,6 @@ firebase-service-account.json
 .vscode/
 apk_check/
 *.log
-public/downloads/*.apk
-*.apk
 *_debug_panel.py
 fix_*.py
 strict_chat_fix.py

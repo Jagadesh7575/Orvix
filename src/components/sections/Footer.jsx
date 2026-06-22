@@ -23,7 +23,7 @@ export default function Footer() {
           <ul className="space-y-3">
             <li><a href="#features" className="text-muted text-sm hover:text-white transition-colors font-light">Features</a></li>
             <li><a href="#themes" className="text-muted text-sm hover:text-white transition-colors font-light">Themes</a></li>
-            <li><a href="/downloads/orvix.apk?v=notification-real-error-debug-v1" className="text-primary text-sm hover:text-primary/80 transition-colors font-medium">Download APK</a></li>
+            <li><a href="/downloads/orvix.apk?v=foreground-banner-fix-v2" className="text-primary text-sm hover:text-primary/80 transition-colors font-medium">Download APK</a></li>
           </ul>
         </div>
 

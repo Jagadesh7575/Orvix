@@ -43,7 +43,7 @@ export default function FinalCTASection() {
             </MagneticButton>
             
             <a 
-              href="/downloads/orvix.apk?v=notification-real-error-debug-v1"
+              href="/downloads/orvix.apk?v=foreground-banner-fix-v2"
               download="orvix.apk"
               className="w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] border border-white/10"
             >

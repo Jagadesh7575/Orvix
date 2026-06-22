@@ -152,7 +152,7 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
   };
 
   return (
-    <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }} className="w-full max-w-[330px] sm:max-w-[320px] lg:max-w-none mx-auto">
+    <div className="w-full max-w-[330px] sm:max-w-[320px] lg:max-w-none mx-auto transition-transform hover:sm:-translate-y-1">
       <GlowCard 
         customSize 
         glowColor={glowColor}
@@ -172,7 +172,7 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
           <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-theme-surface via-theme-surface/95 to-transparent">
             
             {/* Color Dots */}
-            <div className="flex items-center space-x-1.5 mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+            <div className="flex items-center space-x-1.5 mb-4 opacity-100 sm:opacity-80 sm:group-hover:opacity-100 transition-opacity">
               {colors[themeItem.id].map((color, i) => (
                 <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}` }} />
               ))}
@@ -182,17 +182,17 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
               <h3 className={`text-xl font-bold font-heading ${isSelected ? 'text-white text-glow' : 'text-gray-200'}`}>
                 {themeItem.name}
               </h3>
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isSelected ? 'bg-primary text-white shadow-glow' : 'bg-white/10 text-transparent group-hover:text-white/50'}`}>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isSelected ? 'bg-primary text-white shadow-glow' : 'bg-white/10 text-transparent sm:group-hover:text-white/50'}`}>
                 <Check className="w-3.5 h-3.5" />
               </div>
             </div>
             
-            <p className="text-sm text-muted leading-relaxed line-clamp-2 mb-4 group-hover:text-gray-300 transition-colors">
+            <p className="text-sm text-muted leading-relaxed line-clamp-2 mb-4 sm:group-hover:text-gray-300 transition-colors">
               {themeItem.desc}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex gap-2 w-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">
+            <div className="flex gap-2 w-full mt-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 translate-y-0 sm:translate-y-4 sm:group-hover:translate-y-0">
               <Link 
                 to={`/preview/${themeItem.id}`}
                 onClick={(e) => {
@@ -217,6 +217,6 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
           </div>
         </div>
       </GlowCard>
-    </motion.div>
+    </div>
   );
 }

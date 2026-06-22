@@ -297,9 +297,14 @@ svg,
   }
 
   .theme-card,
+  .feature-card,
   .premium-card,
   .glass-card,
   .glow-card,
+  .step-card,
+  .security-card,
+  .roadmap-card,
+  .faq-card,
   .card,
   .premium-glass,
   .glass {
@@ -310,11 +315,32 @@ svg,
   }
 
   .theme-card,
+  .feature-card,
   .premium-card,
   .glass-card,
-  .glow-card {
+  .glow-card,
+  .step-card,
+  .security-card,
+  .roadmap-card,
+  .faq-card {
     transform: none !important;
     animation: none !important;
+    transition: none !important;
+  }
+
+  .theme-card:hover,
+  .feature-card:hover,
+  .premium-card:hover,
+  .glass-card:hover,
+  .glow-card:hover,
+  .step-card:hover,
+  .security-card:hover,
+  .roadmap-card:hover,
+  .faq-card:hover {
+    animation: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   .floating-orb,

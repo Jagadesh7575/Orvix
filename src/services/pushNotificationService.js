@@ -1,5 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { supabase } from '../lib/supabase';
 
 class PushNotificationService {
@@ -43,6 +44,15 @@ class PushNotificationService {
 
       console.log('[PUSH_DEBUG] Push permission granted. Registering...');
 
+      // Required Fix 2 - Android Notification Channel
+      await this.createNotificationChannel();
+
+      // Request Local Notifications permission for foreground
+      let localPerm = await LocalNotifications.checkPermissions();
+      if (localPerm.display === 'prompt') {
+        await LocalNotifications.requestPermissions();
+      }
+
       // Register listeners
       this._registerListeners(userId);
 
@@ -55,9 +65,28 @@ class PushNotificationService {
     }
   }
 
+  async createNotificationChannel() {
+    if (Capacitor.getPlatform() !== 'android') return;
+    try {
+      await PushNotifications.createChannel({
+        id: "orvix_messages",
+        name: "Orvix Messages",
+        description: "Message notifications",
+        importance: 5,
+        visibility: 1,
+        sound: "default",
+        vibration: true
+      });
+      console.log('[PUSH_DEBUG] Channel orvix_messages created');
+    } catch (e) {
+      console.error('[PUSH_DEBUG] Error creating notification channel:', e);
+    }
+  }
+
   _registerListeners(userId) {
     // Clear old listeners safely
     PushNotifications.removeAllListeners();
+    LocalNotifications.removeAllListeners();
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', async (token) => {
@@ -71,16 +100,58 @@ class PushNotificationService {
     });
 
     // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener('pushNotificationReceived', (notification) => {
+    PushNotifications.addListener('pushNotificationReceived', async (notification) => {
       console.log('[PUSH_DEBUG] Push received in foreground:', JSON.stringify(notification));
-      // Phase 1: Only log. No UI state changes yet.
+      
+      // Required Fix 3 - Foreground Notification Handling
+      try {
+        const payloadData = notification.data || {};
+        
+        // Don't show notification if we are already in that specific chat
+        const currentPath = window.location.pathname;
+        if (payloadData.chat_id && currentPath.includes(`/app/chat/${payloadData.chat_id}`)) {
+          console.log('[PUSH_DEBUG] Already in chat, skipping local notification');
+          return;
+        }
+
+        await LocalNotifications.schedule({
+          notifications: [
+            {
+              title: notification.title || "New Message",
+              body: notification.body || "You received a new message",
+              id: new Date().getTime(),
+              schedule: { at: new Date(Date.now() + 100) }, // Schedule immediately
+              sound: null,
+              attachments: null,
+              actionTypeId: "",
+              extra: payloadData
+            }
+          ]
+        });
+        console.log('[PUSH_DEBUG] Local foreground notification scheduled successfully');
+      } catch (e) {
+        console.error('[PUSH_DEBUG] Failed to schedule local notification:', e);
+      }
     });
 
-    // Method called when tapping on a notification
+    // Method called when tapping on a push notification (from background)
     PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
       console.log('[PUSH_DEBUG] Push action performed (tapped):', JSON.stringify(notification));
-      // Phase 1: Only log. Navigation will be implemented in Phase 2.
+      this.handleNotificationTap(notification.notification.data);
     });
+
+    // Method called when tapping on a local notification (from foreground)
+    LocalNotifications.addListener('localNotificationActionPerformed', (notificationAction) => {
+      console.log('[PUSH_DEBUG] Local notification action performed:', JSON.stringify(notificationAction));
+      this.handleNotificationTap(notificationAction.notification.extra);
+    });
+  }
+
+  handleNotificationTap(data) {
+    if (!data) return;
+    if (data.chat_id) {
+      window.location.href = `/app/chat/${data.chat_id}`;
+    }
   }
 
   /**
@@ -99,13 +170,14 @@ class PushNotificationService {
             user_id: userId, 
             token: token, 
             platform: 'android',
+            device_id: 'default', // Using 'default' as requested
+            is_active: true,
             updated_at: new Date().toISOString()
           },
-          { onConflict: 'user_id, token' }
+          { onConflict: 'user_id, platform, device_id' }
         );
 
       if (error) {
-        // If device_tokens table doesn't exist yet, it will fail gracefully here
         console.warn('[PUSH_DEBUG] Failed to save device token to Supabase:', error.message);
       } else {
         console.log('[PUSH_DEBUG] Token securely saved to Supabase');
@@ -116,7 +188,7 @@ class PushNotificationService {
   }
 
   /**
-   * Optionally remove tokens on logout so another user on the same device doesn't get them.
+   * Optionally remove tokens on logout
    */
   async removeDeviceTokenOnLogout() {
     if (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'android') {
@@ -127,11 +199,9 @@ class PushNotificationService {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user?.id) return;
 
-      // Unregister and remove token (we can't easily retrieve the exact FCM token here without native code or stored preferences,
-      // but we can delete all tokens for this user on this platform to be safe, or just leave it for now).
-      // For phase 1, we can just clear listeners safely.
       console.log('[PUSH_DEBUG] Removing push listeners on logout');
       PushNotifications.removeAllListeners();
+      LocalNotifications.removeAllListeners();
       this.isInitialized = false;
       
     } catch (err) {

@@ -12,6 +12,7 @@ import { useFriends } from '../hooks/useFriends';
 import { getVisibleActivityItems } from '../utils/activityFilters';
 import { chatService } from '../services/chatService';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 
 // Temporary feature flag, forcibly true for debugging Push Notifications on device
@@ -99,6 +100,48 @@ function NotificationDebugPanel() {
     }
   };
 
+  const createChannel = async () => {
+    if (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'android') return addDebugLog("Channel Check", "Not native Android");
+    try {
+      await PushNotifications.createChannel({
+        id: "orvix_messages",
+        name: "Orvix Messages",
+        description: "Message notifications",
+        importance: 5,
+        visibility: 1,
+        sound: "default",
+        vibration: true
+      });
+      addDebugLog("Create Channel", "orvix_messages channel created (importance: HIGH)");
+    } catch (e) {
+      addDebugLog("Create Channel Error", e.message);
+    }
+  };
+
+  const testLocalNotification = async () => {
+    if (!Capacitor.isNativePlatform()) return addDebugLog("Local Notification", "Not native");
+    try {
+      let perm = await LocalNotifications.checkPermissions();
+      if (perm.display !== 'granted') perm = await LocalNotifications.requestPermissions();
+      if (perm.display !== 'granted') return addDebugLog("Local Notif Error", "Permission denied");
+
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            title: "Local Test",
+            body: "This is a local foreground notification.",
+            id: new Date().getTime(),
+            schedule: { at: new Date(Date.now() + 100) },
+            extra: { chat_id: "test", type: "message" }
+          }
+        ]
+      });
+      addDebugLog("Local Notification", "Scheduled successfully");
+    } catch (e) {
+      addDebugLog("Local Notification Error", e.message);
+    }
+  };
+
   const testSelfNotification = async () => {
     addDebugLog("Test Self Notification", "Calling Edge Function...");
     const { data, error } = await supabase.functions.invoke('send-message-notification', {
@@ -161,6 +204,8 @@ function NotificationDebugPanel() {
         <button onClick={registerToken} className="p-2 bg-white/10 rounded font-semibold hover:bg-white/20 active:scale-95 transition-all text-white">3. Register FCM</button>
         <button onClick={saveTokenToDb} className="p-2 bg-white/10 rounded font-semibold hover:bg-white/20 active:scale-95 transition-all text-white">4. Save to DB</button>
         <button onClick={checkMyTokenDb} className="col-span-2 p-2 bg-white/10 rounded font-semibold hover:bg-white/20 active:scale-95 transition-all text-white">5. Check My Token in DB</button>
+        <button onClick={createChannel} className="p-2 bg-purple-500/80 rounded font-semibold hover:bg-purple-500 active:scale-95 transition-all text-white">Create Channel</button>
+        <button onClick={testLocalNotification} className="p-2 bg-purple-500/80 rounded font-semibold hover:bg-purple-500 active:scale-95 transition-all text-white">Test Local Notif</button>
         <button onClick={testSelfNotification} className="col-span-2 p-3 bg-primary text-white rounded font-bold hover:bg-primary/80 active:scale-95 transition-all shadow-glow">6. Test Self Notification</button>
       </div>
 

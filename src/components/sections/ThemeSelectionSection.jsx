@@ -50,11 +50,12 @@ export default function ThemeSelectionSection() {
               transition: { staggerChildren: 0.15 }
             }
           }}
-          className="flex flex-wrap justify-center gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 place-items-center w-full"
         >
           {themes.map((themeObj) => (
             <motion.div
               key={themeObj.id}
+              className="w-full"
               variants={{
                 hidden: { opacity: 0, y: 50, scale: 0.9 },
                 visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }

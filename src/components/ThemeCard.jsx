@@ -152,11 +152,11 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
   };
 
   return (
-    <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
+    <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }} className="w-full max-w-[330px] sm:max-w-[320px] lg:max-w-none mx-auto">
       <GlowCard 
         customSize 
         glowColor={glowColor}
-        className={`w-full max-w-[280px] sm:w-[280px] h-[360px] mx-auto group cursor-pointer ${isSelected ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''} p-0 border-0 rounded-3xl overflow-hidden`}
+        className={`w-full h-[360px] group cursor-pointer ${isSelected ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''} p-0 border-0 rounded-3xl overflow-hidden`}
       >
         <div 
           className="w-full h-full flex flex-col relative overflow-hidden"

@@ -64,6 +64,10 @@
     font-family: 'Outfit', sans-serif;
   }
 
+  img, canvas, svg {
+    max-width: 100%;
+  }
+
   html, body, #root {
     width: 100%;
     overflow-x: hidden;
@@ -317,8 +321,7 @@ svg,
   }
 
   section {
-    content-visibility: auto;
-    contain-intrinsic-size: 600px;
+    contain: paint;
   }
 }
 

@@ -22,7 +22,7 @@ export default function MockupPhone({ className = '' }) {
       {/* Outer Phone Frame */}
       <motion.div
         animate={{ y: [-5, 5, -5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 6, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }}
         className="w-full h-full relative rounded-[3rem] border-[10px] border-[#1a1a24] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.1)_inset,0_0_0_1px_rgba(255,255,255,0.05)] ring-1 ring-white/5 flex flex-col"
         style={{ background: theme.background }}
       >

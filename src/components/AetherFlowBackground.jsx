@@ -61,7 +61,7 @@ const AetherFlowBackground = () => {
             particles = [];
             // Optimize for mobile (reduce density)
             const isMobile = window.innerWidth < 768;
-            const density = isMobile ? 18000 : 10000;
+            const density = isMobile ? 35000 : 10000; // 35000 density = much fewer particles on mobile (20-35% of desktop)
             let numberOfParticles = (window.innerHeight * window.innerWidth) / density;
             
             for (let i = 0; i < numberOfParticles; i++) {
@@ -73,10 +73,11 @@ const AetherFlowBackground = () => {
                 let color = 'rgba(191, 128, 255, 0.8)';
                 particles.push(new Particle(x, y, directionX, directionY, size, color));
             }
-        };
+        }
 
         const resizeCanvas = () => {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x to save GPU
+            const isMobile = window.innerWidth < 768;
+            const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2); // Cap at 1.5x on mobile to save GPU
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
@@ -85,19 +86,28 @@ const AetherFlowBackground = () => {
             canvas.style.height = `${window.innerHeight}px`;
             init(); 
         };
-        window.addEventListener('resize', resizeCanvas);
+        
+        let resizeTimeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeCanvas, 200); // Debounce resize
+        };
+        
+        window.addEventListener('resize', handleResize);
         resizeCanvas();
 
         const connect = () => {
             let opacityValue = 1;
-            const connectionDistance = window.innerWidth < 768 ? 10000 : 20000;
+            const isMobile = window.innerWidth < 768;
+            const connectionDistance = isMobile ? 6000 : 20000;
+            const maxOpacity = isMobile ? 0.5 : 1; // Lower line opacity on mobile
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
                     let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
                         + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
                     
                     if (distance < connectionDistance) {
-                        opacityValue = 1 - (distance / connectionDistance);
+                        opacityValue = (1 - (distance / connectionDistance)) * maxOpacity;
                         
                         let dx_mouse_a = particles[a].x - mouse.x;
                         let dy_mouse_a = particles[a].y - mouse.y;
@@ -119,9 +129,28 @@ const AetherFlowBackground = () => {
             }
         };
 
-        const animate = () => {
+        let lastTime = 0;
+        const fpsInterval = window.innerWidth < 768 ? 1000 / 30 : 1000 / 60; // 30fps max on mobile, 60fps on desktop
+        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let drawnStatic = false;
+
+        const animate = (time) => {
             animationFrameId = requestAnimationFrame(animate);
             if (document.hidden) return; // Pause on hidden tab
+
+            if (isReducedMotion) {
+                if (!drawnStatic) {
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0, 0, innerWidth, innerHeight);
+                    particles.forEach(p => p.draw());
+                    drawnStatic = true;
+                }
+                return;
+            }
+
+            const elapsed = time - lastTime;
+            if (elapsed < fpsInterval) return;
+            lastTime = time - (elapsed % fpsInterval);
             
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, innerWidth, innerHeight);
@@ -153,7 +182,8 @@ const AetherFlowBackground = () => {
         animate();
 
         return () => {
-            window.removeEventListener('resize', resizeCanvas);
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
             window.removeEventListener('pointermove', handleMouseMove);
             window.removeEventListener('pointerout', handleMouseOut);
             cancelAnimationFrame(animationFrameId);

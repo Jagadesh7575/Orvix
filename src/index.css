@@ -286,20 +286,29 @@ svg,
   .backdrop-blur-2xl,
   .backdrop-blur-3xl,
   .backdrop-blur-md,
-  .backdrop-blur-lg {
+  .backdrop-blur-lg,
+  .glass,
+  .glass-card,
+  .premium-glass,
+  .glass-panel {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
   }
   
   .shadow-glow,
   .shadow-glass,
-  .shadow-2xl {
-    box-shadow: none !important;
+  .shadow-2xl,
+  .theme-card,
+  .phone-mockup,
+  .premium-card {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25) !important;
   }
   
-  .glass-panel {
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
+  .floating-orb,
+  .heavy-glow,
+  .extra-gradient-orb {
+    animation: none !important;
+    filter: none !important;
   }
 }
 

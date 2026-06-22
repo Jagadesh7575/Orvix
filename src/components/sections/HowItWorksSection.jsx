@@ -61,7 +61,7 @@ export default function HowItWorksSection() {
             <motion.div 
               className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-secondary to-primary shadow-glow h-32 rounded-full"
               animate={{ top: ['0%', '100%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 5, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: 'linear' }}
             />
           </div>
 

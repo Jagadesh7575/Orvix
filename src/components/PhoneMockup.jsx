@@ -318,9 +318,9 @@ export default function PhoneMockup() {
                 <div className="text-[7px] text-white/70 mt-1 text-right flex justify-end items-center"><CheckCircle2 className="w-2 h-2 mr-0.5"/> 12:32 PM</div>
               </motion.div>
               <motion.div variants={itemFade} className="flex items-center space-x-1 mt-2 ml-1">
-                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
-                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
-                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
+                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: window.innerWidth < 768 ? 0 : Infinity, duration: 0.6, delay: 0 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
+                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: window.innerWidth < 768 ? 0 : Infinity, duration: 0.6, delay: 0.2 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
+                <motion.div animate={{ y: [0, -3, 0] }} transition={{ repeat: window.innerWidth < 768 ? 0 : Infinity, duration: 0.6, delay: 0.4 }} className="w-1.5 h-1.5 rounded-full" style={{ background: token.primary }} />
               </motion.div>
             </motion.div>
             
@@ -431,15 +431,15 @@ export default function PhoneMockup() {
   return (
     <div className="relative flex flex-col items-center">
       {/* Premium Floating Badges */}
-      <motion.div animate={{ y: [-10, 10, -10] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -left-24 top-[15%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
+      <motion.div animate={{ y: [-10, 10, -10] }} transition={{ duration: 6, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -left-24 top-[15%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
         <div className="w-2 h-2 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-pulse" style={{ background: '#38bdf8' }} />
         <span className="text-xs text-white font-bold tracking-wide">Realtime Chat</span>
       </motion.div>
-      <motion.div animate={{ y: [10, -10, 10] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -right-28 top-[35%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
+      <motion.div animate={{ y: [10, -10, 10] }} transition={{ duration: 7, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -right-28 top-[35%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
         <Shield className="w-3.5 h-3.5" style={{ color: '#a78bfa' }} />
         <span className="text-xs text-white font-bold tracking-wide">Private & Secure</span>
       </motion.div>
-      <motion.div animate={{ y: [-8, 8, -8] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -left-20 bottom-[30%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
+      <motion.div animate={{ y: [-8, 8, -8] }} transition={{ duration: 5, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }} className="hidden sm:flex absolute -left-20 bottom-[30%] px-4 py-2.5 rounded-2xl border shadow-xl z-20 items-center space-x-2 backdrop-blur-xl" style={{ background: 'rgba(10,10,15,0.7)', borderColor: 'rgba(255,255,255,0.1)' }}>
         <Palette className="w-3.5 h-3.5" style={{ color: '#f43f5e' }} />
         <span className="text-xs text-white font-bold tracking-wide">Premium UI</span>
       </motion.div>
@@ -471,7 +471,7 @@ export default function PhoneMockup() {
       {/* Realistic Cinematic Hardware Mockup */}
       <motion.div 
         animate={{ y: [-5, 5, -5] }} 
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 8, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }}
         className="relative w-[300px] sm:w-[340px] h-[620px] sm:h-[700px] rounded-[3.5rem] border-[12px] bg-black overflow-hidden flex flex-col z-10 transition-colors duration-500 shadow-2xl"
         style={{ borderColor: '#111', boxShadow: `0 30px 60px -12px rgba(0,0,0,0.8), ${token.glow}` }}
       >

@@ -23,7 +23,7 @@ export default function HeroSection() {
               <motion.span 
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent blur-md pointer-events-none"
                 animate={{ x: ['-100%', '200%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 3, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "linear" }}
               />
             </span>
           </h1>

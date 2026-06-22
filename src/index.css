@@ -291,44 +291,50 @@ svg,
 
 /* PERFORMANCE OPTIMIZATIONS */
 @media (max-width: 768px) {
-  * {
-    scroll-behavior: auto !important;
+  html, body, #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
 
-  .backdrop-blur-xl,
-  .backdrop-blur-2xl,
-  .backdrop-blur-3xl,
-  .backdrop-blur-md,
-  .backdrop-blur-lg,
-  .glass,
-  .glass-card,
-  .premium-glass,
-  .glass-panel {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.12s !important;
   }
-  
-  .shadow-glow,
-  .shadow-glass,
-  .shadow-2xl,
-  .theme-card,
-  .phone-mockup,
-  .premium-card {
-    box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
-  }
-  
+
+  .aether-bg,
+  .animated-bg,
   .floating-orb,
   .heavy-glow,
-  .extra-gradient-orb,
   .pulse-glow,
-  .animated-gradient {
+  .extra-gradient-orb {
     animation: none !important;
-    transform: none !important;
     filter: none !important;
   }
 
-  section {
-    contain: paint;
+  .glass,
+  .glass-card,
+  .premium-glass,
+  .theme-card,
+  .premium-card,
+  .glow-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .theme-card:hover,
+  .premium-card:hover,
+  .glow-card:hover,
+  button:hover,
+  a:hover {
+    transform: none !important;
+    box-shadow: none !important;
   }
 }
 

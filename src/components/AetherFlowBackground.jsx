@@ -89,9 +89,22 @@ const AetherFlowBackground = () => {
         };
         
         let resizeTimeout;
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            if (window.innerWidth < 768 && window.innerWidth === lastWidth) {
+                // Ignore height-only resizes on mobile (URL bar showing/hiding) to prevent layout thrashing
+                return;
+            }
+            lastWidth = window.innerWidth;
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(resizeCanvas, 200); // Debounce resize
+            resizeTimeout = setTimeout(() => {
+                drawnStatic = false; // Force redraw on resize
+                resizeCanvas();
+                if (window.innerWidth < 768) {
+                    // Mobile is frozen, so we must manually call animate once to draw the new static frame
+                    animate();
+                }
+            }, 200); // Debounce resize
         };
         
         window.addEventListener('resize', handleResize);

@@ -8,6 +8,7 @@ export default function MockupPhone({ className = '' }) {
   const [activeScreen, setActiveScreen] = useState('dashboard');
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const screens = ['dashboard', 'chatPage', 'activity', 'settings'];
     let currentIndex = 0;
     const interval = setInterval(() => {

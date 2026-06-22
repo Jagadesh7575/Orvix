@@ -14,8 +14,8 @@ import { chatService } from '../services/chatService';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
 
-// Temporary feature flag, only visible in development
-const SHOW_NOTIFICATION_DEBUG_PANEL = import.meta.env.DEV;
+// Temporary feature flag, forcibly true for debugging Push Notifications on device
+const SHOW_NOTIFICATION_DEBUG_PANEL = true;
 
 // TEMP DEBUG PANEL - REMOVE BEFORE FINAL PRODUCTION APK
 function NotificationDebugPanel() {

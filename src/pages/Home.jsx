@@ -118,28 +118,15 @@ function NotificationDebugPanel() {
     }
   };
 
-  const testLocalNotification = async () => {
-    if (!Capacitor.isNativePlatform()) return addDebugLog("Local Notification", "Not native");
-    try {
-      let perm = await LocalNotifications.checkPermissions();
-      if (perm.display !== 'granted') perm = await LocalNotifications.requestPermissions();
-      if (perm.display !== 'granted') return addDebugLog("Local Notif Error", "Permission denied");
-
-      await LocalNotifications.schedule({
-        notifications: [
-          {
-            title: "Local Test",
-            body: "This is a local foreground notification.",
-            id: Math.floor(Math.random() * 2000000000), // MUST BE 32-BIT INT
-            schedule: { at: new Date(Date.now() + 100) },
-            extra: { chat_id: "test", type: "message" }
-          }
-        ]
-      });
-      addDebugLog("Local Notification", "Scheduled successfully");
-    } catch (e) {
-      addDebugLog("Local Notification Error", e.message);
-    }
+  const testForegroundBanner = () => {
+    window.dispatchEvent(new CustomEvent('in-app-notification', {
+      detail: {
+        title: "Foreground Banner Test",
+        body: "This is a custom React in-app notification banner.",
+        data: { chat_id: "test", type: "message" }
+      }
+    }));
+    addDebugLog("Foreground Banner Test", "Dispatched in-app-notification event");
   };
 
   const testSelfNotification = async () => {
@@ -205,7 +192,7 @@ function NotificationDebugPanel() {
         <button onClick={saveTokenToDb} className="p-2 bg-white/10 rounded font-semibold hover:bg-white/20 active:scale-95 transition-all text-white">4. Save to DB</button>
         <button onClick={checkMyTokenDb} className="col-span-2 p-2 bg-white/10 rounded font-semibold hover:bg-white/20 active:scale-95 transition-all text-white">5. Check My Token in DB</button>
         <button onClick={createChannel} className="p-2 bg-purple-500/80 rounded font-semibold hover:bg-purple-500 active:scale-95 transition-all text-white">Create Channel</button>
-        <button onClick={testLocalNotification} className="p-2 bg-purple-500/80 rounded font-semibold hover:bg-purple-500 active:scale-95 transition-all text-white">Test Local Notif</button>
+        <button onClick={testForegroundBanner} className="p-2 bg-purple-500/80 rounded font-semibold hover:bg-purple-500 active:scale-95 transition-all text-white">Test FG Banner</button>
         <button onClick={testSelfNotification} className="col-span-2 p-3 bg-primary text-white rounded font-bold hover:bg-primary/80 active:scale-95 transition-all shadow-glow">6. Test Self Notification</button>
       </div>
 

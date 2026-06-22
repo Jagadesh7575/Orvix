@@ -114,23 +114,18 @@ class PushNotificationService {
           return;
         }
 
-        await LocalNotifications.schedule({
-          notifications: [
-            {
-              title: notification.title || "New Message",
-              body: notification.body || "You received a new message",
-              id: Math.floor(Math.random() * 2000000000), // MUST BE 32-BIT INT, NOT Date.now()
-              schedule: { at: new Date(Date.now() + 100) }, // Schedule immediately
-              sound: null,
-              attachments: null,
-              actionTypeId: "",
-              extra: payloadData
-            }
-          ]
-        });
-        console.log('[PUSH_DEBUG] Local foreground notification scheduled successfully');
+        // Dispatch custom event to trigger InAppNotificationBanner component
+        window.dispatchEvent(new CustomEvent('in-app-notification', {
+          detail: {
+            title: notification.title || "New Message",
+            body: notification.body || "You received a new message",
+            data: payloadData
+          }
+        }));
+        
+        console.log('[PUSH_DEBUG] Foreground in-app banner event dispatched');
       } catch (e) {
-        console.error('[PUSH_DEBUG] Failed to schedule local notification:', e);
+        console.error('[PUSH_DEBUG] Failed to dispatch in-app banner event:', e);
       }
     });
 

@@ -8,7 +8,7 @@ export const downloadApk = async () => {
       // Create a hidden anchor element to trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'orvix.apk';
+      link.download = 'orvix-v2.apk';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

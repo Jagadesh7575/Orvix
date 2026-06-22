@@ -206,7 +206,7 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
               </Link>
               <a
                 href="/downloads/orvix.apk?v=foreground-banner-fix-v2"
-                download="orvix.apk"
+                download="orvix-v2.apk"
                 onClick={(e) => e.stopPropagation()}
                 className="flex-1 py-2.5 rounded-xl border border-white/10 bg-primary text-xs font-semibold text-white flex items-center justify-center space-x-2 hover:bg-primary/90 transition-all shadow-glow hover:scale-105"
               >

@@ -61,23 +61,24 @@ const AetherFlowBackground = () => {
             particles = [];
             // Optimize for mobile (reduce density)
             const isMobile = window.innerWidth < 768;
-            const density = isMobile ? 35000 : 10000; // 35000 density = much fewer particles on mobile (20-35% of desktop)
+            const density = isMobile ? 90000 : 10000; // 90000 density = very few particles on mobile
             let numberOfParticles = (window.innerHeight * window.innerWidth) / density;
+            const speedMultiplier = isMobile ? 0.5 : 1; // 50% slower on mobile
             
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 1;
                 let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = 'rgba(191, 128, 255, 0.8)';
+                let directionX = ((Math.random() * 0.4) - 0.2) * speedMultiplier;
+                let directionY = ((Math.random() * 0.4) - 0.2) * speedMultiplier;
+                let color = isMobile ? 'rgba(191, 128, 255, 0.4)' : 'rgba(191, 128, 255, 0.8)';
                 particles.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
 
         const resizeCanvas = () => {
             const isMobile = window.innerWidth < 768;
-            const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2); // Cap at 1.5x on mobile to save GPU
+            const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2); // Cap at 1x on mobile to save GPU
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
@@ -99,8 +100,8 @@ const AetherFlowBackground = () => {
         const connect = () => {
             let opacityValue = 1;
             const isMobile = window.innerWidth < 768;
-            const connectionDistance = isMobile ? 6000 : 20000;
-            const maxOpacity = isMobile ? 0.5 : 1; // Lower line opacity on mobile
+            const connectionDistance = isMobile ? 3000 : 20000;
+            const maxOpacity = isMobile ? 0.25 : 1; // Lower line opacity on mobile
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
                     let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
@@ -130,7 +131,7 @@ const AetherFlowBackground = () => {
         };
 
         let lastTime = 0;
-        const fpsInterval = window.innerWidth < 768 ? 1000 / 30 : 1000 / 60; // 30fps max on mobile, 60fps on desktop
+        const fpsInterval = window.innerWidth < 768 ? 1000 / 20 : 1000 / 60; // 20fps max on mobile, 60fps on desktop
         const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let drawnStatic = false;
 

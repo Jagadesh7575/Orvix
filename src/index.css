@@ -64,6 +64,11 @@
     font-family: 'Outfit', sans-serif;
   }
 
+  html, body, #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     font-family: 'Inter', sans-serif;
     background: var(--theme-bg);
@@ -291,8 +296,8 @@ svg,
   .glass-card,
   .premium-glass,
   .glass-panel {
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
   }
   
   .shadow-glow,
@@ -301,7 +306,7 @@ svg,
   .theme-card,
   .phone-mockup,
   .premium-card {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
   }
   
   .floating-orb,
@@ -309,6 +314,11 @@ svg,
   .extra-gradient-orb {
     animation: none !important;
     filter: none !important;
+  }
+
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 600px;
   }
 }
 

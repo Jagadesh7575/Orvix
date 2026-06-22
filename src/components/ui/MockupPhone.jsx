@@ -18,7 +18,7 @@ export default function MockupPhone({ className = '' }) {
   }, []);
 
   return (
-    <div className={`relative mx-auto w-[280px] h-[580px] md:w-[300px] md:h-[620px] ${className}`}>
+    <div className={`relative mx-auto w-[260px] h-[540px] sm:w-[280px] sm:h-[580px] md:w-[300px] md:h-[620px] ${className}`}>
       {/* Outer Phone Frame */}
       <motion.div
         animate={{ y: [-5, 5, -5] }}

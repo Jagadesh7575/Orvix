@@ -22,7 +22,7 @@ export default function RoadmapSection() {
   ];
 
   return (
-    <section id="roadmap" className="py-24 px-8 relative z-10 bg-surface/30 border-y border-white/5">
+    <section id="roadmap" className="py-24 px-4 lg:px-8 relative z-10 bg-surface/30 border-y border-white/5">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,7 +31,7 @@ export default function RoadmapSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">The Journey Ahead</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4">The Journey Ahead</h2>
           <p className="text-muted text-lg">Orvix is constantly evolving. Here is our roadmap.</p>
         </motion.div>
 

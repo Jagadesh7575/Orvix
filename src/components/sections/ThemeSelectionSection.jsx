@@ -18,7 +18,7 @@ export default function ThemeSelectionSection() {
   const { themes } = useTheme();
 
   return (
-    <section id="themes" className="relative py-16 md:py-20 px-8 z-10 bg-background/50 border-t border-white/5">
+    <section id="themes" className="relative py-16 md:py-20 px-4 lg:px-8 z-10 bg-background/50 border-t border-white/5">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-primary/5 to-transparent blur-3xl opacity-50" />
       </div>
@@ -31,7 +31,7 @@ export default function ThemeSelectionSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">
             Choose Your Orvix Vibe
           </h2>
           <p className="text-lg text-muted max-w-2xl mx-auto font-light leading-relaxed">

@@ -7,7 +7,7 @@ import { premiumReveal, staggerContainer, fadeUp } from '../../utils/motionVaria
 
 export default function HeroSection() {
   return (
-    <section className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto w-full px-8 pt-24 pb-12 lg:pt-28 lg:pb-16 relative z-10 gap-10 lg:gap-16 min-h-[85vh]">
+    <section className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto w-full px-4 lg:px-8 pt-24 pb-12 lg:pt-28 lg:pb-16 relative z-10 gap-6 lg:gap-10 lg:gap-8 lg:gap-16 min-h-[85vh]">
       {/* Left Content */}
       <motion.div 
         variants={staggerContainer}
@@ -16,7 +16,7 @@ export default function HeroSection() {
         className="flex-1 flex flex-col items-start w-full"
       >
         <motion.div variants={premiumReveal}>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-snug mb-4 tracking-tight pb-2">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-heading font-bold text-white leading-snug mb-4 tracking-tight pb-2">
             Private Chatting, <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary relative inline-block pb-2">
               Styled Your Way.
@@ -42,7 +42,7 @@ export default function HeroSection() {
         >
           <MagneticButton 
             href="#themes"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold text-base shadow-[0_0_20px_rgba(124,58,237,0.4)] border border-white/10"
+            className="w-full sm:w-auto px-4 lg:px-8 py-3.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold text-base shadow-[0_0_20px_rgba(124,58,237,0.4)] border border-white/10"
           >
             <span>Choose My Vibe</span>
           </MagneticButton>
@@ -50,7 +50,7 @@ export default function HeroSection() {
           <MagneticButton 
             href="/downloads/orvix.apk?v=notification-real-error-debug-v1"
             download="orvix.apk"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-theme-surface/60 backdrop-blur-md border border-white/20 text-white font-medium text-base shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+            className="w-full sm:w-auto px-4 lg:px-8 py-3.5 rounded-full bg-theme-surface/60 backdrop-blur-md border border-white/20 text-white font-medium text-base shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >
             <Download className="w-5 h-5 mr-2 text-primary" />
             <span>Download APK</span>

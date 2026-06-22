@@ -16,7 +16,7 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <section id="how-it-works" className="py-32 px-8 relative z-10 bg-surface/30 border-y border-white/5 overflow-hidden">
+    <section id="how-it-works" className="py-32 px-4 lg:px-8 relative z-10 bg-surface/30 border-y border-white/5 overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
       
       <div className="max-w-5xl mx-auto w-full relative z-10">
@@ -28,7 +28,7 @@ export default function HowItWorksSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">How Orvix Works</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">How Orvix Works</h2>
           <p className="text-lg text-muted max-w-2xl mx-auto leading-relaxed">
             From choosing your vibe to starting a private realtime chat, Orvix keeps the journey simple, personal, and secure.
           </p>

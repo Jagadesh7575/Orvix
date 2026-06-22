@@ -28,7 +28,7 @@ export default function WhyOrvixSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 px-8 relative z-10 bg-black/40">
+    <section className="py-20 md:py-28 px-4 lg:px-8 relative z-10 bg-black/40">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -37,7 +37,7 @@ export default function WhyOrvixSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Why Orvix is different</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">Why Orvix is different</h2>
           <p className="text-muted text-lg max-w-2xl mx-auto font-light">A messaging experience that adapts to your style, not the other way around.</p>
         </motion.div>
 

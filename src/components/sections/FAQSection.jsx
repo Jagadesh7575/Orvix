@@ -16,7 +16,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-20 md:py-28 px-8 relative z-10 bg-black/40">
+    <section id="faq" className="py-20 md:py-28 px-4 lg:px-8 relative z-10 bg-black/40">
       <div className="max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -25,7 +25,7 @@ export default function FAQSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Frequently Asked Questions</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">Frequently Asked Questions</h2>
           <p className="text-muted text-lg max-w-2xl mx-auto font-light">Everything you need to know about the Orvix private chat experience.</p>
         </motion.div>
 

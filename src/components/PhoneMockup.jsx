@@ -472,7 +472,7 @@ export default function PhoneMockup() {
       <motion.div 
         animate={{ y: [-5, 5, -5] }} 
         transition={{ duration: 8, repeat: window.innerWidth < 768 ? 0 : Infinity, ease: "easeInOut" }}
-        className="relative w-[300px] sm:w-[340px] h-[620px] sm:h-[700px] rounded-[3.5rem] border-[12px] bg-black overflow-hidden flex flex-col z-10 transition-colors duration-500 shadow-2xl"
+        className="relative w-[260px] h-[540px] xs:w-[280px] xs:h-[580px] sm:w-[340px] sm:h-[700px] rounded-[3rem] sm:rounded-[3.5rem] border-[10px] sm:border-[12px] bg-black overflow-hidden flex flex-col z-10 transition-colors duration-500 shadow-2xl"
         style={{ borderColor: '#111', boxShadow: `0 30px 60px -12px rgba(0,0,0,0.8), ${token.glow}` }}
       >
         {/* Device Edge Highlights */}

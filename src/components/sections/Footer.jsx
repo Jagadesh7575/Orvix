@@ -4,7 +4,7 @@ import LogoLockup from '../brand/LogoLockup';
 
 export default function Footer() {
   return (
-    <footer className="bg-black/40 border-t border-white/5 pt-16 pb-8 px-8 relative z-10">
+    <footer className="bg-black/40 border-t border-white/5 pt-16 pb-8 px-4 lg:px-8 relative z-10">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         
         {/* Brand */}

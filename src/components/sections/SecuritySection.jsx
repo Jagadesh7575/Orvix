@@ -14,9 +14,9 @@ export default function SecuritySection() {
   ];
 
   return (
-    <section id="security" className="py-12 md:py-16 px-8 relative z-10 bg-surface/30 border-y border-white/5">
+    <section id="security" className="py-12 md:py-16 px-4 lg:px-8 relative z-10 bg-surface/30 border-y border-white/5">
       <div className="max-w-7xl mx-auto w-full">
-        <div className="flex flex-col lg:flex-row gap-10 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
           
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
@@ -25,7 +25,7 @@ export default function SecuritySection() {
             transition={{ duration: 0.8 }}
             className="flex-1"
           >
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Built for private conversations</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4">Built for private conversations</h2>
             <p className="text-lg text-muted mb-6 leading-relaxed">
               Orvix is currently built with privacy-focused access rules and secure authentication. Users only see chats they are members of, and profiles and messages use protected access policies.
             </p>

@@ -19,7 +19,7 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="py-20 md:py-28 px-8 relative z-10 bg-black/40">
+    <section id="features" className="py-20 md:py-28 px-4 lg:px-8 relative z-10 bg-black/40">
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div
@@ -29,7 +29,7 @@ export default function FeaturesSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Built for the Modern User</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">Built for the Modern User</h2>
           <p className="text-muted text-lg max-w-2xl mx-auto font-light">Everything you need for a premium, private messaging experience without the bloat.</p>
         </motion.div>
 

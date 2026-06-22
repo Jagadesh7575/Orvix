@@ -6,7 +6,7 @@ import { scaleIn, premiumReveal, fadeUp } from '../../utils/motionVariants';
 
 export default function FinalCTASection() {
   return (
-    <section className="py-24 md:py-32 px-8 relative z-10 bg-black/40 overflow-hidden border-t border-white/5">
+    <section className="py-24 md:py-32 px-4 lg:px-8 relative z-10 bg-black/40 overflow-hidden border-t border-white/5">
       {/* Premium Background Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[500px] bg-primary/20 blur-[150px] rounded-full pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] h-[300px] bg-secondary/15 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
@@ -23,7 +23,7 @@ export default function FinalCTASection() {
             <span className="text-xs font-semibold tracking-wider text-white uppercase">Available Now</span>
           </motion.div>
           
-          <motion.h2 variants={fadeUp} className="text-5xl md:text-7xl font-heading font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
+          <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl md:text-7xl font-heading font-bold text-white mb-6 tracking-tight drop-shadow-2xl">
             Ready to build your <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary relative inline-block">
               private space?

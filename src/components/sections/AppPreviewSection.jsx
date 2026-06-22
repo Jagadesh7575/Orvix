@@ -55,7 +55,7 @@ export default function AppPreviewSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 px-8 relative z-10 bg-black/40">
+    <section className="py-20 md:py-28 px-4 lg:px-8 relative z-10 bg-black/40">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           variants={premiumReveal}
@@ -64,7 +64,7 @@ export default function AppPreviewSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Experience the app</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-6">Experience the app</h2>
           <p className="text-muted text-lg max-w-2xl mx-auto font-light">A glimpse into the native interface you'll see after downloading.</p>
         </motion.div>
 

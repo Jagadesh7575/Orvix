@@ -156,7 +156,7 @@ export default function ThemeCard({ themeItem, glowColor = "purple" }) {
       <GlowCard 
         customSize 
         glowColor={glowColor}
-        className={`w-[280px] h-[360px] group cursor-pointer ${isSelected ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''} p-0 border-0 rounded-3xl overflow-hidden`}
+        className={`w-full max-w-[280px] sm:w-[280px] h-[360px] mx-auto group cursor-pointer ${isSelected ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''} p-0 border-0 rounded-3xl overflow-hidden`}
       >
         <div 
           className="w-full h-full flex flex-col relative overflow-hidden"

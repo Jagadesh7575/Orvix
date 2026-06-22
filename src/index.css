@@ -291,6 +291,10 @@ svg,
 
 /* PERFORMANCE OPTIMIZATIONS */
 @media (max-width: 768px) {
+  * {
+    scroll-behavior: auto !important;
+  }
+
   .backdrop-blur-xl,
   .backdrop-blur-2xl,
   .backdrop-blur-3xl,
@@ -300,8 +304,8 @@ svg,
   .glass-card,
   .premium-glass,
   .glass-panel {
-    backdrop-filter: blur(2px) !important;
-    -webkit-backdrop-filter: blur(2px) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   
   .shadow-glow,
@@ -310,13 +314,16 @@ svg,
   .theme-card,
   .phone-mockup,
   .premium-card {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
   }
   
   .floating-orb,
   .heavy-glow,
-  .extra-gradient-orb {
+  .extra-gradient-orb,
+  .pulse-glow,
+  .animated-gradient {
     animation: none !important;
+    transform: none !important;
     filter: none !important;
   }
 

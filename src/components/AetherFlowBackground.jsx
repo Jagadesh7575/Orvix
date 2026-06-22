@@ -136,6 +136,18 @@ const AetherFlowBackground = () => {
         let drawnStatic = false;
 
         const animate = (time) => {
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                if (!drawnStatic) {
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0, 0, innerWidth, innerHeight);
+                    particles.forEach(p => p.draw());
+                    connect();
+                    drawnStatic = true;
+                }
+                return; // STRICTLY: No requestAnimationFrame on mobile
+            }
+
             animationFrameId = requestAnimationFrame(animate);
             if (document.hidden) return; // Pause on hidden tab
 

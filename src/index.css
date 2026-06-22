@@ -70,6 +70,7 @@
 
   html, body, #root {
     width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
   }
 
@@ -291,61 +292,54 @@ svg,
 
 /* PERFORMANCE OPTIMIZATIONS */
 @media (max-width: 768px) {
-  html, body, #root {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100%;
+  * {
+    scroll-behavior: auto !important;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.12s !important;
+  .theme-card,
+  .premium-card,
+  .glass-card,
+  .glow-card,
+  .card,
+  .premium-glass,
+  .glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
-  .aether-bg,
-  .animated-bg,
+  .theme-card,
+  .premium-card,
+  .glass-card,
+  .glow-card {
+    transform: none !important;
+    animation: none !important;
+  }
+
   .floating-orb,
   .heavy-glow,
   .pulse-glow,
-  .extra-gradient-orb {
+  .extra-gradient-orb,
+  .animated-gradient,
+  .decorative-orb {
+    display: none !important;
     animation: none !important;
     filter: none !important;
   }
 
-  .glass,
-  .glass-card,
-  .premium-glass,
-  .theme-card,
-  .premium-card,
-  .glow-card {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
+  .mobile-no-motion {
+    animation: none !important;
     transform: none !important;
     transition: none !important;
-  }
-
-  .theme-card:hover,
-  .premium-card:hover,
-  .glow-card:hover,
-  button:hover,
-  a:hover {
-    transform: none !important;
-    box-shadow: none !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-delay: -1ms !important;
-    animation-duration: 1ms !important;
+  * {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    background-attachment: initial !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
   }
 }

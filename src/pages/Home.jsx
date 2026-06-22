@@ -130,7 +130,7 @@ function NotificationDebugPanel() {
           {
             title: "Local Test",
             body: "This is a local foreground notification.",
-            id: new Date().getTime(),
+            id: Math.floor(Math.random() * 2000000000), // MUST BE 32-BIT INT
             schedule: { at: new Date(Date.now() + 100) },
             extra: { chat_id: "test", type: "message" }
           }

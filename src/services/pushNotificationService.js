@@ -119,7 +119,7 @@ class PushNotificationService {
             {
               title: notification.title || "New Message",
               body: notification.body || "You received a new message",
-              id: new Date().getTime(),
+              id: Math.floor(Math.random() * 2000000000), // MUST BE 32-BIT INT, NOT Date.now()
               schedule: { at: new Date(Date.now() + 100) }, // Schedule immediately
               sound: null,
               attachments: null,

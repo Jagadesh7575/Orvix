@@ -1,5 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { supabase } from '../lib/supabase';
 
 class PushNotificationService {
@@ -46,6 +47,12 @@ class PushNotificationService {
       // Required Fix 2 - Android Notification Channel
       await this.createNotificationChannel();
 
+      // Request Local Notifications permission for foreground
+      let localPerm = await LocalNotifications.checkPermissions();
+      if (localPerm.display === 'prompt') {
+        await LocalNotifications.requestPermissions();
+      }
+
       // Register listeners
       this._registerListeners(userId);
 
@@ -79,6 +86,7 @@ class PushNotificationService {
   _registerListeners(userId) {
     // Clear old listeners safely
     PushNotifications.removeAllListeners();
+    LocalNotifications.removeAllListeners();
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', async (token) => {
@@ -125,6 +133,12 @@ class PushNotificationService {
     PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
       console.log('[PUSH_DEBUG] Push action performed (tapped):', JSON.stringify(notification));
       this.handleNotificationTap(notification.notification.data);
+    });
+
+    // Method called when tapping on a local notification (from foreground)
+    LocalNotifications.addListener('localNotificationActionPerformed', (notificationAction) => {
+      console.log('[PUSH_DEBUG] Local notification action performed:', JSON.stringify(notificationAction));
+      this.handleNotificationTap(notificationAction.notification.extra);
     });
   }
 
@@ -182,6 +196,7 @@ class PushNotificationService {
 
       console.log('[PUSH_DEBUG] Removing push listeners on logout');
       PushNotifications.removeAllListeners();
+      LocalNotifications.removeAllListeners();
       this.isInitialized = false;
       
     } catch (err) {

@@ -1,14 +1,14 @@
 export const downloadApk = async () => {
   try {
-    const url = '/downloads/orvix-v3.apk';
-    const checkUrl = `${url}?t=${Date.now()}`;
+    const url = '/downloads/orvix.apk?v=foreground-banner-fix-v2';
+    const checkUrl = `${url}&t=${Date.now()}`;
     const response = await fetch(checkUrl, { method: 'HEAD', cache: 'no-store' });
     
     if (response.ok) {
       // Create a hidden anchor element to trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'orvix-v3.apk';
+      link.download = 'orvix-v4.apk';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

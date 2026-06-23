@@ -10,10 +10,12 @@ const InAppNotificationBanner = () => {
     const handleNotification = (e) => {
       setNotification(e.detail);
       
-      // Auto dismiss after 4 seconds
+      console.log('[BANNER_DEBUG] Banner should now be visible!', e.detail);
+      // Auto dismiss after 10 seconds for easier testing
       const timer = setTimeout(() => {
+        console.log('[BANNER_DEBUG] Banner auto-dismissed');
         setNotification(null);
-      }, 4000);
+      }, 10000);
       
       return () => clearTimeout(timer);
     };
@@ -38,9 +40,9 @@ const InAppNotificationBanner = () => {
     >
       <div 
         onClick={handleTap}
-        className="glass-panel bg-surface/90 backdrop-blur-xl border border-primary/30 p-4 rounded-2xl shadow-glow-sm flex items-start space-x-3 cursor-pointer"
+        className="glass-panel bg-surface/90 backdrop-blur-xl border-2 border-purple-500 p-4 rounded-2xl shadow-glow-lg flex items-start space-x-3 cursor-pointer"
       >
-        <div className="bg-primary/20 p-2 rounded-xl text-primary flex-shrink-0 mt-0.5">
+        <div className="bg-purple-500/20 p-2 rounded-xl text-purple-400 flex-shrink-0 mt-0.5">
           <MessageSquare size={20} />
         </div>
         

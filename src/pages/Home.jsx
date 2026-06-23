@@ -156,7 +156,12 @@ function NotificationDebugPanel() {
     if (!receiverId) return addDebugLog("Receiver Test", "Please input receiver ID");
     addDebugLog("Test Receiver Notification", `Calling Edge Function for ${receiverId}...`);
     const { data, error } = await supabase.functions.invoke('send-message-notification', {
-      body: { debug: true, mode: 'receiver-test', title: 'Orvix Receiver Test', body: 'Test from another user.', sender_id: user.id, receiver_id: receiverId, chat_id: 'test-chat-receiver', message_id: 'test-msg-receiver' }
+      body: { 
+        mode: 'receiver-test', 
+        receiver_id: receiverId.trim(),
+        title: 'Orvix Receiver Test', 
+        body: 'Cross-account receiver notification test' 
+      }
     });
 
     if (error) {

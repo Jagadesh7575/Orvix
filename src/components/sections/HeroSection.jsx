@@ -48,7 +48,7 @@ export default function HeroSection() {
           </MagneticButton>
           
           <MagneticButton 
-            href="/downloads/orvix.apk?v=foreground-banner-fix-v2"
+            href="/downloads/orvix-v3.apk"
             download="orvix-v3.apk"
             className="w-full sm:w-auto px-4 lg:px-8 py-3.5 rounded-full bg-theme-surface/60 backdrop-blur-md border border-white/20 text-white font-medium text-base shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
           >

@@ -1,6 +1,6 @@
 export const downloadApk = async () => {
   try {
-    const url = '/downloads/orvix.apk?v=foreground-banner-fix-v2';
+    const url = '/downloads/orvix-v3.apk';
     const checkUrl = `${url}&t=${Date.now()}`;
     const response = await fetch(checkUrl, { method: 'HEAD', cache: 'no-store' });
     

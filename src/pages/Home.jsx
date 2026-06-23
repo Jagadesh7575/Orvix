@@ -12,7 +12,6 @@ import { useFriends } from '../hooks/useFriends';
 import { getVisibleActivityItems } from '../utils/activityFilters';
 import { chatService } from '../services/chatService';
 import { PushNotifications } from '@capacitor/push-notifications';
-import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 
 // Temporary feature flag, forcibly true for debugging Push Notifications on device

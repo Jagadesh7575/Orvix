@@ -277,7 +277,7 @@ export default function ThemePreview() {
         </button>
         
         <a 
-          href="/downloads/orvix.apk?v=foreground-banner-fix-v2"
+          href="/downloads/orvix-v4.apk"
           download
           className="flex items-center space-x-2 px-5 py-2 rounded-full text-sm font-bold shadow-lg transition-transform hover:scale-105"
           style={{ background: token.primaryGradient, color: '#fff', boxShadow: token.glow }}
@@ -562,7 +562,7 @@ export default function ThemePreview() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
             <a 
-              href="/downloads/orvix.apk?v=foreground-banner-fix-v2"
+              href="/downloads/orvix-v4.apk"
               download
               className="w-full sm:w-auto px-10 py-4 rounded-full text-white font-bold text-lg flex items-center justify-center space-x-2 transition-transform hover:scale-105"
               style={{ background: token.primaryGradient, boxShadow: token.glow }}

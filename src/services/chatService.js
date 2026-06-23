@@ -349,10 +349,13 @@ export const chatService = {
                 try {
                   const { data, error } = await supabase.functions.invoke('send-message-notification', {
                     body: {
+                      mode: 'real-message',
                       chat_id: chatId,
                       message_id: messageToReturn.id,
                       sender_id: senderId,
-                      receiver_id: member.user_id
+                      receiver_id: member.user_id,
+                      title: "New message",
+                      body: messageToReturn.content
                     }
                   });
                   

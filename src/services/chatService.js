@@ -343,22 +343,25 @@ export const chatService = {
               const otherMembers = members.filter(m => m.user_id !== senderId);
               
               for (const member of otherMembers) {
-                console.log('[REAL_MESSAGE_FLOW] receiver_id:', member.user_id);
-                console.log('[REAL_MESSAGE_FLOW] notification_function_called:', true);
-                
+                const payload = {
+                  mode: 'real-message',
+                  chat_id: chatId,
+                  message_id: messageToReturn.id,
+                  sender_id: senderId,
+                  receiver_id: member.user_id,
+                  title: "New message",
+                  body: messageToReturn.content
+                };
+
+                let functionResponse = null;
+                let functionError = null;
+
                 try {
                   const { data, error } = await supabase.functions.invoke('send-message-notification', {
-                    body: {
-                      mode: 'real-message',
-                      chat_id: chatId,
-                      message_id: messageToReturn.id,
-                      sender_id: senderId,
-                      receiver_id: member.user_id,
-                      title: "New message",
-                      body: messageToReturn.content
-                    }
+                    body: payload
                   });
                   
+                  functionResponse = data;
                   if (error) {
                     let parsedError = error.message;
                     try {
@@ -367,13 +370,26 @@ export const chatService = {
                         try { parsedError = JSON.parse(text); } catch { parsedError = text; }
                       }
                     } catch (e) {}
-                    console.error('[REAL_MESSAGE_FLOW] function_error:', parsedError);
-                  } else {
-                    console.log('[REAL_MESSAGE_FLOW] function_response:', data);
+                    functionError = parsedError;
                   }
-                } catch (pushError) {
-                  console.warn('[REAL_MESSAGE_FLOW] Push failed but message saved:', pushError);
+                } catch (err) {
+                  functionError = err.message || err.toString();
                 }
+
+                // EXACT REQUIRED LOG
+                console.log(JSON.stringify({
+                  real_message_debug: true,
+                  message_saved: !!messageToReturn,
+                  message_id: messageToReturn.id,
+                  chat_id: chatId,
+                  sender_id: senderId,
+                  receiver_id: member.user_id,
+                  other_user_id: member.user_id,
+                  notification_function_called: true,
+                  notification_payload: payload,
+                  edge_function_response: functionResponse,
+                  edge_function_error: functionError
+                }, null, 2));
               }
             }
           } catch (err) {

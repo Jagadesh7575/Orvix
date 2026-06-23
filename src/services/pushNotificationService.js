@@ -93,11 +93,13 @@ class PushNotificationService {
 
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived', async (notification) => {
-      console.log('[PUSH_DEBUG] Push received in foreground:', JSON.stringify(notification));
+      console.log("REAL_PUSH_RECEIVED", JSON.stringify(notification));
       
       // Required Fix 3 - Foreground Notification Handling
       try {
         const payloadData = notification.data || {};
+        const parsedTitle = notification.title || payloadData.title || "New Message";
+        const parsedBody = notification.body || payloadData.body || "You received a new message";
         
         // Don't show notification if we are already in that specific chat
         const currentPath = window.location.pathname;
@@ -109,13 +111,21 @@ class PushNotificationService {
         // Dispatch custom event to trigger InAppNotificationBanner component
         window.dispatchEvent(new CustomEvent('in-app-notification', {
           detail: {
-            title: notification.title || "New Message",
-            body: notification.body || "You received a new message",
+            title: parsedTitle,
+            body: parsedBody,
             data: payloadData
           }
         }));
         
-        console.log('[PUSH_DEBUG] Foreground in-app banner event dispatched');
+        console.log(JSON.stringify({
+          real_push_received: true,
+          banner_dispatched: true,
+          title: parsedTitle,
+          body: parsedBody,
+          chat_id: payloadData.chat_id,
+          sender_id: payloadData.sender_id
+        }, null, 2));
+        
       } catch (e) {
         console.error('[PUSH_DEBUG] Failed to dispatch in-app banner event:', e);
       }

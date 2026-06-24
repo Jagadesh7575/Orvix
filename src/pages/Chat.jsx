@@ -14,6 +14,7 @@ import Avatar from '../components/Avatar';
 import { ChatSkeleton } from '../components/Skeletons';
 import { useMinuteTicker } from '../hooks/useMinuteTicker';
 import { formatInstagramRelativeTime } from '../utils/timeFormat';
+import { useCallContext } from '../components/calls/CallProvider';
 
 import AttachmentMenu from '../components/chat/AttachmentMenu';
 import UploadProgressBubble from '../components/chat/UploadProgressBubble';
@@ -50,6 +51,9 @@ const Chat = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  
+  const callContext = useCallContext();
+  const startCall = callContext?.startCall;
   
   const [activeChatId, setActiveChatId] = useState(null);
   
@@ -1093,10 +1097,32 @@ const Chat = () => {
           </div>
           
           <div className="flex items-center space-x-1 ml-2">
-            <button onClick={() => showToast('Voice calls coming soon')} className="p-2 app-muted hover:text-[var(--theme-primary)] hover:bg-white/5 rounded-full transition-colors active:scale-95">
+            <button 
+              onClick={async () => {
+                if (!friend?.id || !startCall) return;
+                try {
+                  await navigator.mediaDevices.getUserMedia({ audio: true });
+                  startCall(friend.id, activeChatId, 'voice');
+                } catch (err) {
+                  showToast('Microphone permission required for voice calls.');
+                }
+              }} 
+              className="p-2 app-muted hover:text-[var(--theme-primary)] hover:bg-white/5 rounded-full transition-colors active:scale-95"
+            >
               <Phone className="w-5 h-5" />
             </button>
-            <button onClick={() => showToast('Video calls coming soon')} className="p-2 app-muted hover:text-[var(--theme-primary)] hover:bg-white/5 rounded-full transition-colors active:scale-95">
+            <button 
+              onClick={async () => {
+                if (!friend?.id || !startCall) return;
+                try {
+                  await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+                  startCall(friend.id, activeChatId, 'video');
+                } catch (err) {
+                  showToast('Camera and microphone permissions required for video calls.');
+                }
+              }} 
+              className="p-2 app-muted hover:text-[var(--theme-primary)] hover:bg-white/5 rounded-full transition-colors active:scale-95"
+            >
               <Video className="w-5 h-5" />
             </button>
           </div>

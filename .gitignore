@@ -22,3 +22,4 @@ test_*.js
 test_*.cjs
 grab_logs.cjs
 check_sql*.js
+*.apk

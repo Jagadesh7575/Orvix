@@ -353,6 +353,36 @@ export const chatService = {
                   body: messageToReturn.content
                 };
 
+                window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+                  detail: {
+                    source: "chatService",
+                    title: "Real Message Notification",
+                    data: {
+                      real_message_debug: true,
+                      step: "message_saved",
+                      message_saved: !!messageToReturn,
+                      message_id: messageToReturn.id,
+                      chat_id: chatId,
+                      sender_id: senderId,
+                      receiver_id: member.user_id,
+                      other_user_id: member.user_id
+                    }
+                  }
+                }));
+
+                window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+                  detail: {
+                    source: "chatService",
+                    title: "Calling Edge Function",
+                    data: {
+                      real_message_debug: true,
+                      step: "calling_edge_function",
+                      notification_function_called: true,
+                      notification_payload: payload
+                    }
+                  }
+                }));
+
                 let functionResponse = null;
                 let functionError = null;
 
@@ -371,25 +401,47 @@ export const chatService = {
                       }
                     } catch (e) {}
                     functionError = parsedError;
+
+                    window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+                      detail: {
+                        source: "chatService",
+                        title: "Edge Function Error",
+                        data: {
+                          real_message_debug: true,
+                          step: "edge_function_error",
+                          edge_function_error: error.message,
+                          edge_function_error_body: functionError
+                        }
+                      }
+                    }));
+                  } else {
+                    window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+                      detail: {
+                        source: "chatService",
+                        title: "Edge Function Success",
+                        data: {
+                          real_message_debug: true,
+                          step: "edge_function_success",
+                          edge_function_response: functionResponse
+                        }
+                      }
+                    }));
                   }
                 } catch (err) {
                   functionError = err.message || err.toString();
+                  window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+                    detail: {
+                      source: "chatService",
+                      title: "Edge Function Try-Catch Error",
+                      data: {
+                        real_message_debug: true,
+                        step: "edge_function_error",
+                        edge_function_error: functionError,
+                        edge_function_error_body: functionError
+                      }
+                    }
+                  }));
                 }
-
-                // EXACT REQUIRED LOG
-                console.log(JSON.stringify({
-                  real_message_debug: true,
-                  message_saved: !!messageToReturn,
-                  message_id: messageToReturn.id,
-                  chat_id: chatId,
-                  sender_id: senderId,
-                  receiver_id: member.user_id,
-                  other_user_id: member.user_id,
-                  notification_function_called: true,
-                  notification_payload: payload,
-                  edge_function_response: functionResponse,
-                  edge_function_error: functionError
-                }, null, 2));
               }
             }
           } catch (err) {

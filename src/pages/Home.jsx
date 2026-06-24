@@ -33,6 +33,14 @@ function NotificationDebugPanel() {
     setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${title}: ${typeof data === 'object' ? JSON.stringify(data, null, 2) : data}`]);
   };
 
+  useEffect(() => {
+    const handleGlobalDebug = (e) => {
+      addDebugLog(e.detail.title || "GLOBAL DEBUG", e.detail.data);
+    };
+    window.addEventListener("orvix-debug-log", handleGlobalDebug);
+    return () => window.removeEventListener("orvix-debug-log", handleGlobalDebug);
+  }, []);
+
   const checkPermission = async () => {
     if (!Capacitor.isNativePlatform()) return addDebugLog("Check Permission", "Not a native platform");
     const permStatus = await PushNotifications.checkPermissions();

@@ -93,7 +93,17 @@ class PushNotificationService {
 
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived', async (notification) => {
-      console.log("REAL_PUSH_RECEIVED", JSON.stringify(notification));
+      // Dispatch early receipt log
+      window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+        detail: {
+          source: "pushNotificationService",
+          title: "Push Received Event",
+          data: {
+            real_push_received: true,
+            notification
+          }
+        }
+      }));
       
       // Required Fix 3 - Foreground Notification Handling
       try {
@@ -104,27 +114,57 @@ class PushNotificationService {
         // Don't show notification if we are already in that specific chat
         const currentPath = window.location.pathname;
         if (payloadData.chat_id && currentPath.includes(`/app/chat/${payloadData.chat_id}`)) {
-          console.log('[PUSH_DEBUG] Already in chat, skipping local notification');
+          window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+            detail: {
+              source: "pushNotificationService",
+              title: "Push Received - Skipped UI",
+              data: {
+                real_push_received: true,
+                banner_dispatched: false,
+                reason: "Already in chat"
+              }
+            }
+          }));
           return;
         }
 
-        // Dispatch custom event to trigger InAppNotificationBanner component
-        window.dispatchEvent(new CustomEvent('in-app-notification', {
-          detail: {
-            title: parsedTitle,
-            body: parsedBody,
-            data: payloadData
-          }
-        }));
-        
-        console.log(JSON.stringify({
-          real_push_received: true,
-          banner_dispatched: true,
-          title: parsedTitle,
-          body: parsedBody,
-          chat_id: payloadData.chat_id,
-          sender_id: payloadData.sender_id
-        }, null, 2));
+        // Dispatch custom event to trigger InAppNotificationBanner component or Incoming Call Screen
+        if (payloadData.type === 'incoming_call') {
+          window.dispatchEvent(new CustomEvent('incoming-call-push', {
+            detail: payloadData
+          }));
+
+          window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+            detail: {
+              source: "pushNotificationService",
+              title: "INCOMING_CALL_PUSH_RECEIVED",
+              data: payloadData
+            }
+          }));
+        } else {
+          window.dispatchEvent(new CustomEvent('in-app-notification', {
+            detail: {
+              title: parsedTitle,
+              body: parsedBody,
+              data: payloadData
+            }
+          }));
+          
+          window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+            detail: {
+              source: "pushNotificationService",
+              title: "Push Received - Banner Dispatched",
+              data: {
+                real_push_received: true,
+                banner_dispatched: true,
+                title: parsedTitle,
+                body: parsedBody,
+                chat_id: payloadData.chat_id,
+                sender_id: payloadData.sender_id
+              }
+            }
+          }));
+        }
         
       } catch (e) {
         console.error('[PUSH_DEBUG] Failed to dispatch in-app banner event:', e);
@@ -133,13 +173,29 @@ class PushNotificationService {
 
     // Method called when tapping on a push notification (from background)
     PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-      console.log('[PUSH_DEBUG] Push action performed (tapped):', JSON.stringify(notification));
+      window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+        detail: {
+          source: "pushNotificationService",
+          title: "Push Action Performed",
+          data: {
+            notification_action_performed: true,
+            data: notification.notification.data
+          }
+        }
+      }));
       this.handleNotificationTap(notification.notification.data);
     });
   }
 
   handleNotificationTap(data) {
     if (!data) return;
+    
+    if (data.type === 'incoming_call') {
+      window.dispatchEvent(new CustomEvent('incoming-call-push', {
+        detail: data
+      }));
+    }
+
     if (data.chat_id) {
       window.location.href = `/app/chat/${data.chat_id}`;
     }

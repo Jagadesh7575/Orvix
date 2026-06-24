@@ -10,10 +10,23 @@ const InAppNotificationBanner = () => {
     const handleNotification = (e) => {
       setNotification(e.detail);
       
-      console.log('[BANNER_DEBUG] Banner should now be visible!', e.detail);
+      window.dispatchEvent(new CustomEvent("orvix-debug-log", {
+        detail: {
+          source: "InAppNotificationBanner",
+          title: "Banner Event Received",
+          data: {
+            banner_event_received: true,
+            title: e.detail.title,
+            body: e.detail.body,
+            chat_id: e.detail.data?.chat_id,
+            sender_id: e.detail.data?.sender_id,
+            banner_visible: true
+          }
+        }
+      }));
+
       // Auto dismiss after 10 seconds for easier testing
       const timer = setTimeout(() => {
-        console.log('[BANNER_DEBUG] Banner auto-dismissed');
         setNotification(null);
       }, 10000);
       

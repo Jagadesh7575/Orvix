@@ -131,6 +131,7 @@ import { ThemeProvider as WebThemeProvider } from './theme/ThemeContext';
 import { App as CapacitorApp } from '@capacitor/app';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AppInitializer from './components/AppInitializer';
+import { CallProvider } from './components/calls/CallProvider';
 
 const BackButtonHandler = () => {
   const navigate = useNavigate();
@@ -199,9 +200,11 @@ function App() {
       {isNative ? (
         <NativeThemeProvider>
           <TypographyProvider>
-            <AppInitializer>
-              <NativeRoutes />
-            </AppInitializer>
+            <CallProvider>
+              <AppInitializer>
+                <NativeRoutes />
+              </AppInitializer>
+            </CallProvider>
           </TypographyProvider>
         </NativeThemeProvider>
       ) : (

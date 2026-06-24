@@ -1,6 +1,6 @@
 export const downloadApk = async () => {
   try {
-    const url = '/downloads/orvix-calls-v1.apk';
+    const url = '/downloads/orvix-calls-v2.apk';
     const checkUrl = `${url}?t=${Date.now()}`;
     const response = await fetch(checkUrl, { method: 'HEAD', cache: 'no-store' });
     
@@ -8,7 +8,7 @@ export const downloadApk = async () => {
       // Create a hidden anchor element to trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'orvix-calls-v1.apk';
+      link.download = 'orvix-calls-v2.apk';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

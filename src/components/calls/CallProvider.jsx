@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { useCall } from '../../hooks/useCall';
 import { IncomingCallScreen } from './IncomingCallScreen';
 import { OutgoingCallScreen } from './OutgoingCallScreen';
@@ -12,6 +13,17 @@ export const useCallContext = () => useContext(CallContext);
 export function CallProvider({ children }) {
   const callParams = useCall();
   const { callState, currentCall } = callParams;
+  const { user } = useAuth();
+
+  // Start listening to realtime calls globally when authenticated
+  useEffect(() => {
+    if (user?.id) {
+      callService.startListening(user.id);
+    }
+    return () => {
+      callService.stopListening();
+    };
+  }, [user?.id]);
 
   // Listen for custom incoming call event from Push Notifications
   useEffect(() => {

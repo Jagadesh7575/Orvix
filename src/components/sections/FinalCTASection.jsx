@@ -43,8 +43,8 @@ export default function FinalCTASection() {
             </MagneticButton>
             
             <a 
-              href="/downloads/orvix-calls-v1.apk"
-              download="orvix-calls-v1.apk"
+              href="/downloads/orvix-calls-v2.apk"
+              download="orvix-calls-v2.apk"
               className="w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] border border-white/10"
             >
               <Download className="w-5 h-5 mr-3 drop-shadow-md" />

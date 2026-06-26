@@ -71,6 +71,17 @@ class PushNotificationService {
         vibration: true
       });
       console.log('[PUSH_DEBUG] Channel orvix_messages created');
+
+      await PushNotifications.createChannel({
+        id: "orvix_calls",
+        name: "Orvix Calls",
+        description: "Incoming call notifications",
+        importance: 5,
+        visibility: 1,
+        sound: "ring",
+        vibration: true
+      });
+      console.log('[PUSH_DEBUG] Channel orvix_calls created');
     } catch (e) {
       console.error('[PUSH_DEBUG] Error creating notification channel:', e);
     }

@@ -186,6 +186,11 @@ serve(async (req: Request) => {
               title: title || "Orvix Test Notification",
               body: body || "Your notification setup is working.",
             },
+            android: {
+              notification: {
+                channel_id: "orvix_messages"
+              }
+            },
             data: { type: "test" },
           },
         };
@@ -196,6 +201,11 @@ serve(async (req: Request) => {
             notification: {
               title: "New Orvix message",
               body: "You have a new message",
+            },
+            android: {
+              notification: {
+                channel_id: "orvix_messages"
+              }
             },
             data: {
               type: "message",
